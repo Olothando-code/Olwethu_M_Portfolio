@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Code2, 
   Layout, 
@@ -12,7 +11,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
-
+import { useAutoCarousel } from "@/hooks/use-auto-carousel";
 const skills = [
   {
     category: "Languages",
@@ -59,10 +58,9 @@ const skills = [
 const ITEMS_PER_PAGE = 4;
 
 const SkillsSection = () => {
-  const [currentPage, setCurrentPage] = useState(0);
   const totalPages = Math.ceil(skills.length / ITEMS_PER_PAGE);
+  const { currentPage, goTo, prev, next } = useAutoCarousel(totalPages, 5000);
   const currentSkills = skills.slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE);
-
   return (
     <section id="skills" className="section-padding bg-secondary/20 relative">
       <div className="container mx-auto">
@@ -118,9 +116,8 @@ const SkillsSection = () => {
           {/* Navigation */}
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
-              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
-              disabled={currentPage === 0}
-              className="p-2 rounded-full bg-secondary hover:bg-primary/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              onClick={prev}
+              className="p-2 rounded-full bg-secondary hover:bg-primary/20 transition-colors"
               aria-label="Previous skills"
             >
               <ChevronLeft size={20} className="text-foreground" />
@@ -129,18 +126,17 @@ const SkillsSection = () => {
               {Array.from({ length: totalPages }).map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentPage(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                    i === currentPage ? "bg-primary" : "bg-muted-foreground/30"
+                  onClick={() => goTo(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    i === currentPage ? "bg-primary scale-125" : "bg-muted-foreground/30"
                   }`}
                   aria-label={`Go to page ${i + 1}`}
                 />
               ))}
             </div>
             <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
-              disabled={currentPage === totalPages - 1}
-              className="p-2 rounded-full bg-secondary hover:bg-primary/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              onClick={next}
+              className="p-2 rounded-full bg-secondary hover:bg-primary/20 transition-colors"
               aria-label="Next skills"
             >
               <ChevronRight size={20} className="text-foreground" />
