@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useAutoCarousel } from "@/hooks/use-auto-carousel";
 import { ExternalLink, Github, Bot, Brain, Sparkles, FileText, BarChart3, Scale, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import projectChatbot from "@/assets/project-chatbot.jpg";
@@ -75,10 +75,9 @@ const categoryColors: Record<string, string> = {
 const ITEMS_PER_PAGE = 3;
 
 const ProjectsSection = () => {
-  const [currentPage, setCurrentPage] = useState(0);
   const totalPages = Math.ceil(projects.length / ITEMS_PER_PAGE);
+  const { currentPage, goTo, prev, next } = useAutoCarousel(totalPages, 6000);
   const currentProjects = projects.slice(currentPage * ITEMS_PER_PAGE, (currentPage + 1) * ITEMS_PER_PAGE);
-
   return (
     <section id="projects" className="section-padding relative">
       <div className="container mx-auto">
@@ -164,9 +163,8 @@ const ProjectsSection = () => {
           {/* Navigation */}
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
-              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
-              disabled={currentPage === 0}
-              className="p-2 rounded-full bg-secondary hover:bg-primary/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              onClick={prev}
+              className="p-2 rounded-full bg-secondary hover:bg-primary/20 transition-colors"
               aria-label="Previous projects"
             >
               <ChevronLeft size={20} className="text-foreground" />
@@ -175,18 +173,17 @@ const ProjectsSection = () => {
               {Array.from({ length: totalPages }).map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentPage(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                    i === currentPage ? "bg-primary" : "bg-muted-foreground/30"
+                  onClick={() => goTo(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    i === currentPage ? "bg-primary scale-125" : "bg-muted-foreground/30"
                   }`}
                   aria-label={`Go to page ${i + 1}`}
                 />
               ))}
             </div>
             <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
-              disabled={currentPage === totalPages - 1}
-              className="p-2 rounded-full bg-secondary hover:bg-primary/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              onClick={next}
+              className="p-2 rounded-full bg-secondary hover:bg-primary/20 transition-colors"
               aria-label="Next projects"
             >
               <ChevronRight size={20} className="text-foreground" />

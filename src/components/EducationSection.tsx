@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { GraduationCap, Calendar, MapPin, Award, Briefcase } from "lucide-react";
-
+import { GraduationCap, Calendar, MapPin, Award, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
+import { useAutoCarousel } from "@/hooks/use-auto-carousel";
 const education = [
   {
     degree: "National Diploma in Information Technology",
@@ -54,6 +54,59 @@ const certifications = [
   { name: "Developing Front-End Apps with React", link: null },
   { name: "Full Stack Application Development Capstone", link: null },
 ];
+
+const CERTS_PER_PAGE = 4;
+
+const CertificationsCarousel = () => {
+  const totalPages = Math.ceil(certifications.length / CERTS_PER_PAGE);
+  const { currentPage, goTo, prev, next } = useAutoCarousel(totalPages, 4000);
+  const currentCerts = certifications.slice(currentPage * CERTS_PER_PAGE, (currentPage + 1) * CERTS_PER_PAGE);
+
+  return (
+    <div>
+      <div className="grid gap-3">
+        {currentCerts.map((cert, index) => (
+          <motion.div
+            key={cert.name}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.08 }}
+            className="glass-card p-4 rounded-xl flex items-center gap-4 hover:border-primary/50 transition-colors group"
+          >
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+              <Award size={18} className="text-primary" />
+            </div>
+            {cert.link ? (
+              <a href={cert.link} target="_blank" rel="noopener noreferrer" className="font-medium text-sm hover:text-primary transition-colors">
+                {cert.name}
+              </a>
+            ) : (
+              <span className="font-medium text-sm">{cert.name}</span>
+            )}
+          </motion.div>
+        ))}
+      </div>
+      <div className="flex items-center justify-center gap-4 mt-6">
+        <button onClick={prev} className="p-2 rounded-full bg-secondary hover:bg-primary/20 transition-colors" aria-label="Previous certifications">
+          <ChevronLeft size={20} className="text-foreground" />
+        </button>
+        <div className="flex gap-2">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === currentPage ? "bg-primary scale-125" : "bg-muted-foreground/30"}`}
+              aria-label={`Go to certifications page ${i + 1}`}
+            />
+          ))}
+        </div>
+        <button onClick={next} className="p-2 rounded-full bg-secondary hover:bg-primary/20 transition-colors" aria-label="Next certifications">
+          <ChevronRight size={20} className="text-foreground" />
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const EducationSection = () => {
   return (
@@ -188,29 +241,7 @@ const EducationSection = () => {
               Certifications
             </h3>
 
-            <div className="grid gap-3">
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={cert.name}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
-                  className="glass-card p-4 rounded-xl flex items-center gap-4 hover:border-primary/50 transition-colors group"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <Award size={18} className="text-primary" />
-                  </div>
-                  {cert.link ? (
-                    <a href={cert.link} target="_blank" rel="noopener noreferrer" className="font-medium text-sm hover:text-primary transition-colors">
-                      {cert.name}
-                    </a>
-                  ) : (
-                    <span className="font-medium text-sm">{cert.name}</span>
-                  )}
-                </motion.div>
-              ))}
-            </div>
+            <CertificationsCarousel />
           </motion.div>
         </div>
       </div>
