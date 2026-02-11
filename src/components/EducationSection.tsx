@@ -46,13 +46,13 @@ const certifications = [
   { name: "AI Foundations: Prompt Engineering with ChatGPT", link: "https://www.coursera.org/account/accomplishments/certificate/3R46B01F0JX3" },
   { name: "Python for Data Science, AI & Development", link: "https://www.coursera.org/account/accomplishments/certificate/EOEL0XWLM97D" },
   { name: "Generative AI with Large Language Models", link: "https://www.coursera.org/account/accomplishments/certificate/ERPTH98PF5O7" },
-  { name: "Advance Learning Algorithm", link: "https://www.coursera.org/account/accomplishments/certificate/ERPTH98PF5O7" },
-  { name: "Emotional Intelligence", link: null },
-  { name: "Verbal Communication and Presentation Skills", link: null },
-  { name: "Introduction to Cloud Computing", link: null },
-  { name: "Developing Back-end Apps with Node.js and Express", link: null },
-  { name: "Developing Front-End Apps with React", link: null },
-  { name: "Full Stack Application Development Capstone", link: null },
+  { name: "Advanced Learning Algorithms", link: "https://www.coursera.org/account/accomplishments/certificate/IBZCNKNR0CUB" },
+  { name: "Emotional Intelligence", link: "https://www.coursera.org/account/accomplishments/certificate/DG0XJ0WAOL8Q" },
+  { name: "Verbal Communications and Presentation Skills", link: "https://www.coursera.org/account/accomplishments/certificate/OR0XSHGEZK21" },
+  { name: "Introduction to Cloud Computing", link: "https://www.coursera.org/account/accomplishments/certificate/7T2CXKSM37V1" },
+  { name: "Developing Back-End Apps with Node.js and Express", link: "https://www.coursera.org/account/accomplishments/certificate/ZC97ZUFFJ1IL" },
+  { name: "Developing Front-End Apps with React", link: "https://www.coursera.org/account/accomplishments/certificate/JVEBPE9KD5KQ" },
+  { name: "Full Stack Application Development Capstone", link: "https://www.coursera.org/account/accomplishments/certificate/11Q4U3BEJBYK" },
 ];
 
 const CERTS_PER_PAGE = 4;
