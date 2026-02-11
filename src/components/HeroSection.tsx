@@ -102,7 +102,7 @@ const HeroSection = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button size="lg" className="gap-2 glow-effect" asChild>
-                <a href="/OlwethuMadubelaResume.pdf" target="_blank" rel="noopener noreferrer">
+                <a href="/OlwethuMadubelaResume.pdf" download="OlwethuMadubelaResume.pdf">
                   <Download size={18} />
                   Download CV
                 </a>
