@@ -11,7 +11,7 @@ const socialLinks = [
   { icon: Mail, label: "Email", href: "mailto:Olwethumadubela3@gmail.com", value: "Olwethumadubela3@gmail.com" },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/olwethu-madubela-2168ab190", value: "linkedin.com/in/olwethu-madubela-2168ab190", external: true },
   { icon: Github, label: "GitHub", href: "https://github.com/Olothando-code", value: "github.com/Olothando-code", external: true },
-  { icon: MapPin, label: "Location", href: "#", value: "Salt River, Cape Town, Western Cape" },
+  { icon: MapPin, label: "Location", href: "#", value: "7 Eagle Road Dunoon, Cape Town 7441, Western Cape" },
 ];
 
 const ContactSection = () => {
