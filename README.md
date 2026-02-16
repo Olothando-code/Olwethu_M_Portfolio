@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://exact-capture-framework.lovable.app/
+**URL**: https://omadubela.netlify.app/
 
 ## How can I edit this code?
 
